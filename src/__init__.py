@@ -4,8 +4,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from decouple import config as config_environment
 
 from src import api as api
-from src import api_carcloud as api_carcloud
-from src import api_company as api_company
+
 from flask_cors import CORS
 
 app = Flask(__name__)

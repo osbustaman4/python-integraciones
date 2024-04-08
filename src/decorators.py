@@ -7,7 +7,6 @@ from functools import wraps
 from jwt import encode, decode, ExpiredSignatureError, InvalidSignatureError
 
 from lib.Stech import Logger, Stech
-from src.models.recuperautos.UsuariosApp import UsuariosApp
 
 def expire_date(days: int):
     """
@@ -36,44 +35,7 @@ def write_token(data: dict):
     token = encode(payload={**data, 'exp': expire_date(int(config('EXPIRE_DATE'))) }, key=config('SECRET_KEY'), algorithm='HS256')
     return token.encode('UTF-8')
 
-def verify_user_fcm(func):
-    @wraps(func)
-    def decorador(*args, **kwargs):
-        session = Stech.get_session('desarrollo')
-        try:
 
-            fcm_token = request.headers['Fcm-Token']
-            email = request.json['email']
-            
-            # Verificar si el usuario existe antes de la actualización
-            user_exists = session.query(UsuariosApp).filter(UsuariosApp.email_userapp == email).filter(UsuariosApp.fcm_userapp == fcm_token).first()
-            if user_exists:
-                return func()
-            else:
-                raise ValueError("Usuario no autorizado, revise sus credenciales de acceso y vuelva a intentarlo.")
-        
-        except ValueError as ex:
-            Logger.add_to_log("error", str(ex))
-            Logger.add_to_log("error", traceback.format_exc())
-            session.rollback()
-            response = jsonify(
-                {
-                    'message': str(ex), 
-                }
-            )
-            return response, 401
-        except Exception as ex:
-            Logger.add_to_log("error", str(ex))
-            Logger.add_to_log("error", traceback.format_exc())
-            session.rollback()
-            response = jsonify(
-                {
-                    'message': str(ex), 
-                }
-            )
-            return response, 401
-    
-    return decorador
 
 def verify_token(func):
     """
