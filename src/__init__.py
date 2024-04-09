@@ -29,17 +29,10 @@ SWAGGER_BLUEPRINT = get_swaggerui_blueprint(
 )
 
 app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix = SWAGGER_URL)
-app.register_blueprint(api_integracion_tms .main_funcion_ejemplo, url_prefix='/funcion_ejemplo')
-app.register_blueprint(api_integracion_tms .main_obt_ppu, url_prefix='/obt-ppu')
-app.register_blueprint(api_integracion_tms .main_send_data, url_prefix='/send-data')
-
-
 
 def init_app(config):
     app.config.from_object(config)
 
-    # GARAGE
-    #app.register_blueprint(api.main_list_garage, url_prefix='/listado-garage')
-   
+    app.register_blueprint(api_integracion_tms.main_integration_tms, url_prefix='/integration-tms')
 
     return app
