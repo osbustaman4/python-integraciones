@@ -7,7 +7,7 @@ class Cron():
 
     @classmethod
     def integration_tms_01(self):
-        url = "http://127.0.0.1:5000/integration-tms"
+        url = "http://127.0.0.1:5100/integration-tms"
 
         payload = ""
         headers = {
