@@ -33,6 +33,4 @@ app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix = SWAGGER_URL)
 def init_app(config):
     app.config.from_object(config)
 
-    app.register_blueprint(api_integracion_tms.main_integration_tms, url_prefix='/integration-tms')
-
     return app
