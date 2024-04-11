@@ -18,4 +18,4 @@ class Cron():
         except Exception as e:
             print(f"Error: {e}")
             print(traceback.format_exc())
-            pass
+

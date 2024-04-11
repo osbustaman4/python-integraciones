@@ -1,10 +1,10 @@
 import json
 import requests
 import traceback
-
-from sqlalchemy import text
 from decouple import config as load_data
-from lib.Stech import Stech
+from lib.Stech import Logger, Stech
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 from src.api_integracion_tms import IntegrationTMS
 from src.utils.Utils import insert_integraciones_sinc
 
@@ -105,13 +105,18 @@ class IntegrationTms():
                         })
 
                     print(f"punto enviado: {query.patente}")
+                    Logger.add_to_log("success", f"punto enviado: {query.patente}", load_data('LOG_DIRECTORY_TMS_collahuasi'), "log_tms_collahuasi")
                 else:
 
                     error_integracion = response.json()
                     error_integracion["patente"] = query.patente
-                    print(error_integracion)
+                    Logger.add_to_log("error", error_integracion, load_data('LOG_DIRECTORY_TMS_collahuasi'), "log_tms_collahuasi")
+                    Logger.add_to_log("error", traceback.format_exc(), load_data('LOG_DIRECTORY_TMS_collahuasi'), "log_tms_collahuasi")
+        
+        except SQLAlchemyError as ex:
+            Logger.add_to_log("error", str(ex), load_data('LOG_DIRECTORY_TMS_collahuasi'), "log_tms_collahuasi")
+            Logger.add_to_log("error", traceback.format_exc(), load_data('LOG_DIRECTORY_TMS_collahuasi'), "log_tms_collahuasi")
 
-        except Exception as e:
-            print(f"Error: {e}")
-            print(traceback.format_exc())
-            pass
+        except Exception as ex:
+            Logger.add_to_log("error", str(ex), load_data('LOG_DIRECTORY_TMS_collahuasi'), "log_tms_collahuasi")
+            Logger.add_to_log("error", traceback.format_exc(), load_data('LOG_DIRECTORY_TMS_collahuasi'), "log_tms_collahuasi")
