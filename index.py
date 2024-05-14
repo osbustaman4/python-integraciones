@@ -15,7 +15,7 @@ task_001.add_job(Cron.integration_tms_01, 'interval', seconds=10)
 task_001.start()
 
 task_002 = BackgroundScheduler()
-task_002.add_job(Cron.cron_arauco_01, 'interval', hours=4) 
+task_002.add_job(Cron.cron_arauco_01, 'interval', hours=1) 
 task_002.start()
 
 
