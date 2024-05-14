@@ -29,37 +29,37 @@ from datetime import datetime
 
 
 
-funcion_ejemplo = Blueprint('funcion_ejemploc', __name__)
+# funcion_ejemplo = Blueprint('funcion_ejemploc', __name__)
 
 
 
-@funcion_ejemplo.route('/', methods=['POST'])
+# @funcion_ejemplo.route('/', methods=['POST'])
 
-def funcion_ejemplo():
-    try:
+# def funcion_ejemplo():
+#     try:
     
-        session = Stech.get_session(load_data('ENVIRONMENTS'))
-        data = request.get_json()
-        error_validate, is_validate = Validate.validate_json_keys(data)
-        if is_validate:
-            raise ValueError(error_validate)
+#         session = Stech.get_session(load_data('ENVIRONMENTS'))
+#         data = request.get_json()
+#         error_validate, is_validate = Validate.validate_json_keys(data)
+#         if is_validate:
+#             raise ValueError(error_validate)
         
         
             
 
-        response = {
-            "success": True
-        }
-        return jsonify(response), 200
+#         response = {
+#             "success": True
+#         }
+#         return jsonify(response), 200
 
-    except ValueError as ex:
-        return Utils.create_response(str(ex), False, 404)
+#     except ValueError as ex:
+#         return Utils.create_response(str(ex), False, 404)
 
-    except SQLAlchemyError as ex:
-        return Utils.create_response(str(ex), False, 500)
+#     except SQLAlchemyError as ex:
+#         return Utils.create_response(str(ex), False, 500)
 
-    except Exception as ex:
-        message = f"{str(ex)} - {str(traceback.format_exc())}"
-        return Utils.create_response(message, False, 500)
+#     except Exception as ex:
+#         message = f"{str(ex)} - {str(traceback.format_exc())}"
+#         return Utils.create_response(message, False, 500)
     
 

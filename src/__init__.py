@@ -5,6 +5,7 @@ from decouple import config as config_environment
 
 from src import api as api
 from src import api_integracion_tms as api_integracion_tms
+from src import api_cron_arauco as api_cron_arauco
 
 from flask_cors import CORS
 
@@ -32,5 +33,4 @@ app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix = SWAGGER_URL)
 
 def init_app(config):
     app.config.from_object(config)
-
     return app

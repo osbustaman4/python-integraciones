@@ -1,13 +1,7 @@
-import json
-import requests
 import traceback
 
-from sqlalchemy import text
-from decouple import config as load_data
-from lib.Stech import Stech
-from src.api_integracion_tms import IntegrationTMS
+from src.Crones.CronArauco import CronArauco
 from src.integrations.IntegrationTms import IntegrationTms
-from src.utils.Utils import insert_integraciones_sinc
 
 class Cron():
 
@@ -15,6 +9,19 @@ class Cron():
     def integration_tms_01(self):
         try:
             IntegrationTms.integration_tms_01()
+        except Exception as e:
+            print(f"Error: {e}")
+            print(traceback.format_exc())
+
+
+    @classmethod
+    def cron_arauco_01(self):
+        try:
+            if CronArauco.cron_arauco_01():
+                CronArauco.cron_arauco_01()
+            elif not CronArauco.cron_arauco_01():
+                print("No existe data para actualizar")
+            
         except Exception as e:
             print(f"Error: {e}")
             print(traceback.format_exc())

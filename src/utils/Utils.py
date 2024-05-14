@@ -1,3 +1,5 @@
+
+from flask import jsonify
 from decouple import config as load_data
 from datetime import datetime
 from sqlalchemy import text, func
@@ -53,3 +55,15 @@ def insert_integraciones_sinc(data):
     except Exception as e:
         print(str(e))
         return False
+
+
+
+class Utils:
+
+    @classmethod
+    def create_response(self, message, success, status_code):
+        response = jsonify({
+            'message': message,
+            'success': success
+        })
+        return response, status_code
