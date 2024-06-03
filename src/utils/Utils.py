@@ -57,6 +57,36 @@ def insert_integraciones_sinc(data):
         return False
 
 
+def update_integraciones_sinc(data):
+    try:
+        session = Stech.get_session(load_data('ENVIRONMENTS'))
+
+        query_update = """
+            UPDATE integraciones_sinc
+            SET
+                sinc_integ = :sinc_integ,
+                sinc_imei = :sinc_imei,
+                sinc_dt_tracker = :sinc_dt_tracker,
+                sinc_dt_server = :sinc_dt_server,
+                sinc_params = :sinc_params,
+                sinc_lat = :sinc_lat,
+                sinc_lng = :sinc_lng,
+                sinc_speed = :sinc_speed,
+                sinc_angle = :sinc_angle,
+                sinc_plate = :sinc_plate,
+                idpoint = :idpoint
+            WHERE
+                sinc_imei = :sinc_imei;
+        """
+
+        session.execute(text(query_update), data)
+        session.commit()
+
+    except Exception as e:
+        print(str(e))
+        return False
+
+
 
 class Utils:
 

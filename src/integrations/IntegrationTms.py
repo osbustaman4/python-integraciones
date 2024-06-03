@@ -6,7 +6,7 @@ from lib.Stech import Logger, Stech
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from src.api_integracion_tms import IntegrationTMS
-from src.utils.Utils import insert_integraciones_sinc
+from src.utils.Utils import insert_integraciones_sinc, update_integraciones_sinc
 
 class IntegrationTms():
 
@@ -88,21 +88,25 @@ class IntegrationTms():
                         "sinc_dt_tracker": query.dt_tracker
                     })
 
-                    if query_exist.rowcount == 0:
+                    data_integraciones_sinc = {
+                        "sinc_integ": load_data('INTEGRATION_NAME_TMS_1'),
+                        "sinc_imei": query.imei,
+                        "sinc_dt_tracker": query.dt_tracker,
+                        "sinc_dt_server": query.dt_server,
+                        "sinc_params": query.params,
+                        "sinc_lat": query.latitude,
+                        "sinc_lng": query.longitude,
+                        "sinc_speed": query.speed,
+                        "sinc_angle": query.angle,
+                        "sinc_plate": query.patente,
+                        "idpoint": 0
+                    }
 
-                        insert_integraciones_sinc({
-                            "sinc_integ": load_data('INTEGRATION_NAME_TMS_1'),
-                            "sinc_imei": query.imei,
-                            "sinc_dt_tracker": query.dt_tracker,
-                            "sinc_dt_server": query.dt_server,
-                            "sinc_params": query.params,
-                            "sinc_lat": query.latitude,
-                            "sinc_lng": query.longitude,
-                            "sinc_speed": query.speed,
-                            "sinc_angle": query.angle,
-                            "sinc_plate": query.patente,
-                            "idpoint": 0
-                        })
+                    if query_exist.rowcount == 0:
+                        insert_integraciones_sinc(data_integraciones_sinc)
+
+                    else:
+                        update_integraciones_sinc(data_integraciones_sinc)
 
                     print(f"punto enviado: {query.patente}")
                     Logger.add_to_log("success", f"punto enviado: {query.patente}", load_data('LOG_DIRECTORY_TMS_collahuasi'), "log_tms_collahuasi")
