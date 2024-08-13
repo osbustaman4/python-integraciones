@@ -18,9 +18,9 @@ task_002 = BackgroundScheduler()
 task_002.add_job(Cron.cron_arauco_01, 'interval', hours=1) 
 task_002.start()
 
-# task_003 = BackgroundScheduler()
-# task_003.add_job(Integration.integration_wp_01, 'interval', seconds=10) 
-# task_003.start()
+task_003 = BackgroundScheduler()
+task_003.add_job(Integration.integration_wp_01, 'interval', seconds=10) 
+task_003.start()
 
 
 if __name__ == '__main__':
