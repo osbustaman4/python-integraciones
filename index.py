@@ -2,7 +2,7 @@ from app_config import configure
 from src import init_app
 from dotenv import load_dotenv
 from apscheduler.schedulers.background import BackgroundScheduler
-from src.utils.Cron import Cron
+from src.utils.Cron import Cron, Integration
 
 configuration = configure['development']
 app = init_app(configuration)
@@ -11,12 +11,16 @@ app = init_app(configuration)
 application = app
 
 task_001 = BackgroundScheduler()
-task_001.add_job(Cron.integration_tms_01, 'interval', seconds=10) 
+task_001.add_job(Integration.integration_tms_01, 'interval', seconds=10) 
 task_001.start()
 
 task_002 = BackgroundScheduler()
 task_002.add_job(Cron.cron_arauco_01, 'interval', hours=1) 
 task_002.start()
+
+task_003 = BackgroundScheduler()
+task_003.add_job(Integration.integration_wp_01, 'interval', seconds=10) 
+task_003.start()
 
 
 if __name__ == '__main__':

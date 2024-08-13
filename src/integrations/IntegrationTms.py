@@ -5,7 +5,6 @@ from decouple import config as load_data
 from lib.Stech import Logger, Stech
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
-from src.api_integracion_tms import IntegrationTMS
 from src.utils.Utils import insert_integraciones_sinc, update_integraciones_sinc
 
 class IntegrationTms():
