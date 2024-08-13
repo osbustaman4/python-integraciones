@@ -138,24 +138,24 @@ class IntegrationWaypoint():
 
                         if query_exist.rowcount == 0:
                             insert_integraciones_sinc(data_integraciones_sinc)
-                            Logger.add_to_log("success", f"insert: {query.patente}", load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
+                            Logger.add_to_log("success", f"insert: {query.patente}", load_data('LOG_DIRECTORY'), "log_waypoint")
 
                         else:
                             update_integraciones_sinc(data_integraciones_sinc)
-                            Logger.add_to_log("success", f"update: {query.patente}", load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
+                            Logger.add_to_log("success", f"update: {query.patente}", load_data('LOG_DIRECTORY'), "log_waypoint")
 
-                        Logger.add_to_log("success", f"punto enviado: {query.patente}", load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
+                        Logger.add_to_log("success", f"punto enviado: {query.patente}", load_data('LOG_DIRECTORY'), "log_waypoint")
                 else:
 
                     error_integracion = response.json()
                     error_integracion["patente"] = query.patente
-                    Logger.add_to_log("error", error_integracion, load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
-                    Logger.add_to_log("error", traceback.format_exc(), load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
+                    Logger.add_to_log("error", error_integracion, load_data('LOG_DIRECTORY'), "log_waypoint")
+                    Logger.add_to_log("error", traceback.format_exc(), load_data('LOG_DIRECTORY'), "log_waypoint")
         
         except SQLAlchemyError as ex:
-            Logger.add_to_log("error", str(ex), load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
-            Logger.add_to_log("error", traceback.format_exc(), load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
+            Logger.add_to_log("error", str(ex), load_data('LOG_DIRECTORY'), "log_waypoint")
+            Logger.add_to_log("error", traceback.format_exc(), load_data('LOG_DIRECTORY'), "log_waypoint")
 
         except Exception as ex:
-            Logger.add_to_log("error", str(ex), load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
-            Logger.add_to_log("error", traceback.format_exc(), load_data('INTEGRATION_NAME_WP_1'), "log_waypoint")
+            Logger.add_to_log("error", str(ex), load_data('LOG_DIRECTORY'), "log_waypoint")
+            Logger.add_to_log("error", traceback.format_exc(), load_data('LOG_DIRECTORY'), "log_waypoint")
