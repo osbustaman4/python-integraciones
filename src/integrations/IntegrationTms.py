@@ -14,6 +14,8 @@ class IntegrationTms():
         try:
             session = Stech.get_session(load_data('ENVIRONMENTS'))
 
+            print("INICIO INTEGRACION TMS 01")
+
             result_time_zone = session.execute(text("""SELECT timezone FROM gs_users WHERE id = 1;"""))
 
             response_data_timezone = [
